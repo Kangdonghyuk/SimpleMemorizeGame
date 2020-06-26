@@ -6,11 +6,14 @@ public class GameSimpleMemorize : MonoBehaviour
 {
     public static GameSimpleMemorize I;
 
+    public GameSimpleMemorizeEffect gameSimpleMemorizeEffect;
+
     public Box[,] simpleBoxes = new Box[2,2];
 
     List<Color> memorizeColorList = new List<Color>();
 
     int level, qusIndex;
+    bool isQuestionSetting;
 
     void Awake() {
         I = this;
@@ -23,6 +26,8 @@ public class GameSimpleMemorize : MonoBehaviour
     {
         level = 4;
         qusIndex = 0;
+
+        isQuestionSetting = false;
 
         StartCoroutine(SettingSimpleBoxesColor());
     }
@@ -58,9 +63,16 @@ public class GameSimpleMemorize : MonoBehaviour
         }
     }
 
-    public void Answer(Color color) {
+    public void Answer(Box box) {
+        if(isQuestionSetting)
+            return;
+
+        Color color = box.spriteRenderer.color;
+
         if(color == memorizeColorList[qusIndex]) {
             Debug.Log("Success");
+
+            gameSimpleMemorizeEffect.Yes(box.transform.position);
 
             qusIndex += 1;
 
@@ -72,11 +84,15 @@ public class GameSimpleMemorize : MonoBehaviour
             }
         }
         else {
+            gameSimpleMemorizeEffect.No(box.transform.position);
+
             Debug.Log("Fail");
         }
     }
 
     IEnumerator SettingSimpleBoxesColor() {
+        isQuestionSetting = true;
+
         for(int i = 0; i < level; i++) {
             int index = i % 4;
 
@@ -91,5 +107,7 @@ public class GameSimpleMemorize : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         SettingAnswerList();
+
+        isQuestionSetting = false;
     }
 }
