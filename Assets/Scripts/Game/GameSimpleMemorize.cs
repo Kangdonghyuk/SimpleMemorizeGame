@@ -7,6 +7,8 @@ public class GameSimpleMemorize : MonoBehaviour
     public static GameSimpleMemorize I;
 
     public GameSimpleMemorizeEffect gameSimpleMemorizeEffect;
+    public GameSimpleMemorizeScore gameSimpleMemorizeScore;
+    public GameSimpleMemorizeTime gameSimpleMemorizeTime;
 
     public Box[,] simpleBoxes = new Box[2,2];
 
@@ -28,6 +30,10 @@ public class GameSimpleMemorize : MonoBehaviour
         qusIndex = 0;
 
         isQuestionSetting = false;
+
+        gameSimpleMemorizeScore.SetScore(0);
+
+        gameSimpleMemorizeTime.Init();
 
         StartCoroutine(SettingSimpleBoxesColor());
     }
@@ -76,6 +82,8 @@ public class GameSimpleMemorize : MonoBehaviour
 
             qusIndex += 1;
 
+            gameSimpleMemorizeScore.AddScore(1);
+
             if(qusIndex < level)
                 SettingAnswerList();
             else {
@@ -93,6 +101,8 @@ public class GameSimpleMemorize : MonoBehaviour
     IEnumerator SettingSimpleBoxesColor() {
         isQuestionSetting = true;
 
+        gameSimpleMemorizeTime.Stop();
+
         for(int i = 0; i < level; i++) {
             int index = i % 4;
 
@@ -109,5 +119,7 @@ public class GameSimpleMemorize : MonoBehaviour
         SettingAnswerList();
 
         isQuestionSetting = false;
+
+        gameSimpleMemorizeTime.Play();
     }
 }
