@@ -11,6 +11,7 @@ public class GameSimpleMemorize : MonoBehaviour
     public GameSimpleMemorizeEffect gameSimpleMemorizeEffect;
     public GameSimpleMemorizeScore gameSimpleMemorizeScore;
     public GameSimpleMemorizeTime gameSimpleMemorizeTime;
+    public GameSimpleMemorizeUIFlow gameSimpleMemorizeUIFlow;
 
     public Box[,] simpleBoxes = new Box[2, 2];
 
@@ -30,7 +31,7 @@ public class GameSimpleMemorize : MonoBehaviour
 
     void Start()
     {
-        level = 5;
+        level = CoreInfo.levelCount;
         qusIndex = 0;
         combo = 0;
 

@@ -45,6 +45,10 @@ public class GameSimpleMemorizeTime : MonoBehaviour
         currentTime -= Time.deltaTime;
         answerTime += Time.deltaTime;
 
+        if(currentTime <= 0f) {
+            GameSimpleMemorize.I.gameSimpleMemorizeUIFlow.EnableOverlayUIFinish();
+        }
+
         timeSlider.value = (currentTime / fullTime);    
     }
 }

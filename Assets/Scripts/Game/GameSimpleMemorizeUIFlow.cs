@@ -5,35 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class GameSimpleMemorizeUIFlow : MonoBehaviour
 {
-    public GameObject overlayUI;
+    public GameObject puasePopup;
+    public GameObject finishPopup;
 
     void Start() {
-        DisableOverlayUI();
+        DisableOverlayUIPause();
     }
 
-    void EnableOverlayUI() {
-        overlayUI.SetActive(true);
+    void EnableOverlayUIPause() {
+        puasePopup.SetActive(true);
 
         Time.timeScale = 0f;
     }
 
-    void DisableOverlayUI() {
-        overlayUI.SetActive(false);
+    void DisableOverlayUIPause() {
+        puasePopup.SetActive(false);
 
         Time.timeScale = 1f;
     }
 
+    public void EnableOverlayUIFinish() {
+        finishPopup.SetActive(true);
+
+        Time.timeScale = 0f;
+    } 
+
     public void ClickPause() {
-        EnableOverlayUI();
+        EnableOverlayUIPause();
     }
 
     public void ClickMenu() {
-        DisableOverlayUI();
+        DisableOverlayUIPause();
 
         SceneManager.LoadScene("Menu");
     }
 
     public void ClickRe() {
-        DisableOverlayUI();
+        DisableOverlayUIPause();
     }
 }
