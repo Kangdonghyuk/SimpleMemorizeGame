@@ -6,18 +6,22 @@ public class GameSimpleMemorize : MonoBehaviour
 {
     public static GameSimpleMemorize I;
 
+    public int ROW, COL;
+
     public GameSimpleMemorizeEffect gameSimpleMemorizeEffect;
     public GameSimpleMemorizeScore gameSimpleMemorizeScore;
     public GameSimpleMemorizeTime gameSimpleMemorizeTime;
 
-    public Box[,] simpleBoxes = new Box[2,2];
+    public Box[,] simpleBoxes = new Box[2, 2];
 
     List<Color> memorizeColorList = new List<Color>();
 
-    int level, qusIndex;
+    int level, qusIndex, combo;
     bool isQuestionSetting;
 
     void Awake() {
+        Screen.SetResolution(1080, 1920, true);
+
         I = this;
 
         for(int i=0; i<transform.childCount; i++)
@@ -26,8 +30,9 @@ public class GameSimpleMemorize : MonoBehaviour
 
     void Start()
     {
-        level = 4;
+        level = 5;
         qusIndex = 0;
+        combo = 0;
 
         isQuestionSetting = false;
 
@@ -81,17 +86,24 @@ public class GameSimpleMemorize : MonoBehaviour
             gameSimpleMemorizeEffect.Yes(box.transform.position);
 
             qusIndex += 1;
+            combo += 1;
+            
+            
+            Debug.Log("Combo " + combo.ToString() + " Score : " + (1 + (combo / 10)).ToString());
+            gameSimpleMemorizeScore.AddScore(1 + (combo / 10));
 
-            gameSimpleMemorizeScore.AddScore(1);
-
-            if(qusIndex < level)
+            if(qusIndex < level) {
                 SettingAnswerList();
+            }
             else {
+                Debug.Log("Time Score : " + Mathf.Clamp(5 - (int)gameSimpleMemorizeTime.answerTime, 0, 5).ToString());
+                gameSimpleMemorizeScore.AddScore(Mathf.Clamp(5 - (int)gameSimpleMemorizeTime.answerTime, 0, 5));
                 Initialize();
                 StartCoroutine(SettingSimpleBoxesColor());
             }
         }
         else {
+            combo = 0;
             gameSimpleMemorizeEffect.No(box.transform.position);
 
             Debug.Log("Fail");

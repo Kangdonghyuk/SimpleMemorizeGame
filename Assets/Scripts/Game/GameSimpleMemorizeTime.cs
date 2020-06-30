@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class GameSimpleMemorizeTime : MonoBehaviour
 {
+    public Text stateText;
     public Slider timeSlider;
     public float fullTime;
     public float currentTime;
+    public float answerTime;
     
     bool isPlay;
 
@@ -18,14 +20,22 @@ public class GameSimpleMemorizeTime : MonoBehaviour
         timeSlider.value = 1f;
 
         isPlay = false;
+
+        stateText.text = "Questions";
     }
 
     public void Stop() {
         isPlay = false;
+        answerTime = 0f;
+
+        stateText.text = "Questions";
     }
 
     public void Play() {
         isPlay = true;
+        answerTime = 0f;
+
+        stateText.text = "Answer";
     }
 
     void Update() {
@@ -33,6 +43,7 @@ public class GameSimpleMemorizeTime : MonoBehaviour
             return;
 
         currentTime -= Time.deltaTime;
+        answerTime += Time.deltaTime;
 
         timeSlider.value = (currentTime / fullTime);    
     }
