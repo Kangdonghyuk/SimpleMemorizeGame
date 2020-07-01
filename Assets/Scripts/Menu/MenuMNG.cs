@@ -13,7 +13,7 @@ public class MenuMNG : MonoBehaviour
     }
     
     public void ClickRank() {
-
+        SceneManager.LoadScene("Rank");
     }
 
     public void ClickExit() {

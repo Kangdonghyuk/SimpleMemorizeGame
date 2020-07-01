@@ -36,11 +36,6 @@ public class GameMainAlgorithm : MonoBehaviour
         StartCoroutine(SettingSimpleBoxesColor());
     }
 
-    void Update()
-    {
-        
-    }
-
     void Initialize() {
         questionIndex = 0;
         
