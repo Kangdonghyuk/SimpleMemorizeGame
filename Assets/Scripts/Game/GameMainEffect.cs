@@ -40,7 +40,8 @@ public struct YesNoEffectObject
         Init();
     }
 }
-public class GameSimpleMemorizeEffect : MonoBehaviour
+
+public class GameMainEffect : MonoBehaviour
 {
     enum YESNO {
         YES = 0,

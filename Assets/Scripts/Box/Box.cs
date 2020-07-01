@@ -42,6 +42,6 @@ public class Box : MonoBehaviour
 
     void OnMouseDown() {
         //GameSimpleMemorize.I.Answer(spriteRenderer.color);
-        GameSimpleMemorize.I.Answer(this);
+        GameMainAlgorithm.I.Answer(this);
     }
 }

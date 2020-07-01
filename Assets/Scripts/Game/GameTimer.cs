@@ -1,44 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class GameSimpleMemorizeTime : MonoBehaviour
+public class GameTimer : MonoBehaviour
 {
-    public Text stateText;
-    public Slider timeSlider;
+    public static GameTimer I;
+    void Awake() {
+        I = this;
+    }
+
     public float fullTime;
     public float currentTime;
     public float answerTime;
-    
+
     bool isPlay;
 
-    public void Init() {
+    public void Init()
+    {
         fullTime = 30f;
         currentTime = fullTime;
 
-        timeSlider.value = 1f;
-
         isPlay = false;
-
-        stateText.text = "Questions";
     }
 
     public void Stop() {
-        isPlay = false;
         answerTime = 0f;
 
-        stateText.text = "Questions";
+        isPlay = false;
     }
 
     public void Play() {
-        isPlay = true;
         answerTime = 0f;
 
-        stateText.text = "Answer";
+        isPlay = true;
     }
 
-    void Update() {
+    public void PlayGame() {
+        Time.timeScale = 1f;
+    }
+
+    public void StopGame() {
+        Time.timeScale = 0f;
+    }
+
+    void Update()
+    {
         if(!isPlay)
             return;
 
@@ -46,9 +52,12 @@ public class GameSimpleMemorizeTime : MonoBehaviour
         answerTime += Time.deltaTime;
 
         if(currentTime <= 0f) {
-            GameSimpleMemorize.I.gameSimpleMemorizeUIFlow.EnableOverlayUIFinish();
+            StopGame();
+            GameMainUI.I.gameOverlayUI.Finish();
         }
+    }
 
-        timeSlider.value = (currentTime / fullTime);    
+    public float GetCurrentTimeValue() {
+        return currentTime / fullTime;
     }
 }

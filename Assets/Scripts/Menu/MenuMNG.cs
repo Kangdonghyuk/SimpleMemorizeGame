@@ -9,7 +9,7 @@ public class MenuMNG : MonoBehaviour
     public Text levelString;
 
     public void ClickSimple() {
-        SceneManager.LoadScene("Memorize");
+        SceneManager.LoadScene("Game");
     }
     
     public void ClickRank() {
